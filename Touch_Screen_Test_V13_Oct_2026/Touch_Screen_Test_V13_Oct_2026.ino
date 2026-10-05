@@ -25,18 +25,6 @@ long unsigned int BoilActTime = 0;
 long unsigned int FirstAddActTime = 0;
 long unsigned int SecondAddActTime = 0;
 long unsigned int ThirdAddActTime = 0;
-long unsigned int UnPauseTimeBoil = 0;
-long unsigned int UnPauseTime1add = 0;
-long unsigned int UnPauseTime2add = 0;
-long unsigned int UnPauseTime3add = 0;
-long unsigned int TimeSinceUnPauseBoil = 0;
-long unsigned int TimeSinceUnPause1add = 0;
-long unsigned int TimeSinceUnPause2add = 0;
-long unsigned int TimeSinceUnPause3add = 0;
-long unsigned int TimeIncludingPreviousPausesBoil = 0;
-long unsigned int TimeIncludingPreviousPauses1add = 0;
-long unsigned int TimeIncludingPreviousPauses2add = 0;
-long unsigned int TimeIncludingPreviousPauses3add = 0;
 
 long unsigned int MTTone = 250;
 long unsigned int BKTone = 250;
@@ -75,15 +63,6 @@ double MTActT = 0;  //Mash Tun Actual Temperature
 double MTStrikeTemp;
 double Input;
 double Output;
-boolean time_state = false;
-float elapsed = 0.00;
-float time_hold;
-
-double BKActBoilTime;
-
-double BKActFirstAddTime;
-double BKActSecondAddTime;
-double BKActThirdAddTime;
 
 // EEPROM addresses for persisted data
 const int MTSTKpAddress = 0;
