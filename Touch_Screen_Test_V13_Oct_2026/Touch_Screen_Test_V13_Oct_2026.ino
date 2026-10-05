@@ -77,8 +77,6 @@ const int MTGrainTempAddress = 64;
 const int MTInitialWaterTempAddress = 72;
 const int MTRampOffTempAddress = 80;
 const int MTPIDStartTempAddress = 88;
-const int MTPumpSpeedAddress = 96;
-const int MTMixerSpeedAddress = 104;
 const int MashTimeAddress = 112;
 const int BoilTimeAddress = 120;
 const int FirstAddTimeAddress = 128;
@@ -237,8 +235,6 @@ void DoControl() {
   // Time Proportional relay state is updated regularly via timer interrupt.
   DriveOutput.onTime = Output;
 }
-
-StateSystem sys;
 
 stateList StateSystem::checkState() {
   if (MTRun_btn.justPressed())
@@ -407,7 +403,6 @@ void StateSystem::RampOff() {
   // periodically log to serial port in csv format
   if (millis() - lastLogTime > logInterval) {
     lastLogTime = millis();
-
     Serial.print("DATA,TIME,");
     Serial.print("Ramp Off");
     Serial.print(",");
@@ -424,7 +419,6 @@ void StateSystem::RampOff() {
     Serial.print(0);
     Serial.print(",");
     Serial.print(0);
-
     Serial.print(",");
     Serial.print(millis());
     Serial.print(",");
@@ -450,8 +444,7 @@ void StateSystem::RampOff() {
 
 void StateSystem::StrikePID() {
 
-  myPID.SetMode(AUTOMATIC);  // Adding back in for 12L1. removing from 12c Trial 2 to see if this gets PID control to turn on
-
+  myPID.SetMode(AUTOMATIC);
   DoControl();
 
   if (millis() - lastLogTime > logInterval) {
@@ -495,8 +488,8 @@ void StateSystem::StrikePID() {
     Serial.println(UnPauseTime);
   }
 }
-void StateSystem::MashPID() {
 
+void StateSystem::MashPID() {
   //Switch to Mash parameters. MTSp needs to be changed to double to work in this function
   myPID.SetTunings(SettingVariable[MTKpIndex], SettingVariable[MTKiIndex], SettingVariable[MTKpIndex]);
   myPID.SetMode(AUTOMATIC);
@@ -508,9 +501,9 @@ void StateSystem::MashPID() {
     Serial.print("DATA,TIME,");
     Serial.print("Mash PID");
     Serial.print(",");
-    Serial.print(Input);  // 3/6/22 Input is temperature measured
+    Serial.print(Input);
     Serial.print(",");
-    Serial.print(Output / 100);  // 3/6/22 Output / 100 is percentage of power sent to pin?
+    Serial.print(Output / 100);
     Serial.print(",");
     Serial.print(millis() / 1000);
     Serial.print(",");
@@ -546,6 +539,7 @@ void StateSystem::MashPID() {
 
 TextTuple SettingsText[21];
 TextTuple HomeText[13];
+StateSystem sys;
 
 void setup() {
 

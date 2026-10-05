@@ -187,8 +187,8 @@ enum class stateList { OFF = 0, RAMPUP, RAMPOFF, STRIKEPID, MASHPID };
 
 struct StateSystem {
 
-    stateList getState () const { // does it matter that the first const is there?
-      return opState;             // 3/6/22 removed initial const in case that affects mutability of returned stateList
+    stateList getState () const {
+      return opState;
     }
     void doState();
     
@@ -210,8 +210,6 @@ struct StateSystem {
     int MASHStartTime = -1; // Set to current time when beginning MASHPID, set to -1 when out of state
     double MaxRampOffTemp = 0; // JULY 17 2022 keep track of max temp and dips during Ramp Off
 };
-
-
 
 /*********************
   UPDATE 3/28
